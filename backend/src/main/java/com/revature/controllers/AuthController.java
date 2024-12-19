@@ -3,6 +3,7 @@ package com.revature.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,12 @@ public class AuthController {
         System.out.println("User " + result.getUsername() + " has logged in");
 
         return ResponseEntity.ok(result);
+    }
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("User has logged out");
+        return ResponseEntity.ok("User has logged out");
     }
 
     // Possible check_login for frontend

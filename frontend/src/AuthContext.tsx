@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useState, useContext, ReactNode } from "react";
 import User from "./models/userModel";
+import { toast } from "react-toastify";
 
 type AuthContextType = {
     user: User | null;
@@ -28,7 +29,15 @@ export const AuthProvider = ({ children }: {children: ReactNode }) => {
         return false;
     }
     const logout = () => {
-        setUser(null);
+        axios.get("http://localhost:8080/auth/logout", {withCredentials: true})
+            .then(res => {
+                console.log(res);
+                setUser(null);
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("Failed to logout");
+            });
     }
     const createUser = async (firstName: string, lastName: string, username: string, password: string) => {
         const response = await axios.post("http://localhost:8080/user", {

@@ -4,15 +4,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Reimbursement from "../../models/reimbursementModel";
+import ReimbursementEntry from "./ReimbursementEntry";
 
 export default function () {
     const {user} = useAuth();
     const [showStatus, setShowStatus] = useState<string>("ALL");
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
     
-    // NEED TO KNOW: HOW TO TELL IF USER IS MANAGER!
-    // TODO: update desc
-    // TODO: Manager change status
     useEffect(() => {
         axios.get(`http://localhost:8080/reimbursement`, {withCredentials: true})
         .then(res => {
@@ -41,19 +39,12 @@ export default function () {
                         <th>Amount</th>
                         <th>Description</th>
                         <th>Status</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
                     {reimbursements.filter(reimbursement => showStatus === "ALL" || reimbursement.status === showStatus).map(reimbursement => {
-                        return (
-                            <tr key={reimbursement.reimbId}>
-                                {user?.role == "manager" 
-                                    && <td>{reimbursement.user.firstName} {reimbursement.user.lastName}</td>}
-                                <td>${reimbursement.amount}</td>
-                                <td>{reimbursement.description}</td>
-                                <td>{reimbursement.status}</td>
-                            </tr>
-                        );
+                        return <ReimbursementEntry reimbursement={reimbursement} isManager={user?.role === "manager"} />;
                     })}
                 </tbody>
             </Table>
