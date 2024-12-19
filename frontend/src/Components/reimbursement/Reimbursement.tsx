@@ -2,27 +2,26 @@ import { Container, Dropdown, DropdownButton, Table } from "react-bootstrap";
 import { useAuth } from "../../AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import Reimbursement from "../../models/reimbursementModel";
 
 export default function () {
     const {user} = useAuth();
     const [showStatus, setShowStatus] = useState<string>("ALL");
-    const [reimbursements, setReimbursements] = useState<any[]>([]);
+    const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
     
     // NEED TO KNOW: HOW TO TELL IF USER IS MANAGER!
-    // TODO: Manager sees all reimbursements
-    // TODO: view reimbursements
-    // TODO: see certain reimbursements (PENDING, APPROVED, DENIED)
     // TODO: update desc
     // TODO: Manager change status
     useEffect(() => {
-        // TODO: will change
-        axios.get(`http://localhost:8080/tickets?username=${user?.username}&password=${user?.password}`)
+        axios.get(`http://localhost:8080/reimbursement`, {withCredentials: true})
         .then(res => {
             console.log(res.data);
+            setReimbursements(res.data);
         })
         .catch(err => {
             console.log(err);
+            toast.error("Failed to get reimbursements");
         })
     }, [])
     return (
@@ -37,13 +36,25 @@ export default function () {
             <Table striped>
                 <thead>
                     <tr>
+                        {user?.role == "manager" 
+                            && <th>Employee</th>}
                         <th>Amount</th>
                         <th>Description</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    {reimbursements.filter(reimbursement => showStatus === "ALL" || reimbursement.status === showStatus).map(reimbursement => {
+                        return (
+                            <tr key={reimbursement.reimbId}>
+                                {user?.role == "manager" 
+                                    && <td>{reimbursement.user.firstName} {reimbursement.user.lastName}</td>}
+                                <td>${reimbursement.amount}</td>
+                                <td>{reimbursement.description}</td>
+                                <td>{reimbursement.status}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </Table>
         </Container>
