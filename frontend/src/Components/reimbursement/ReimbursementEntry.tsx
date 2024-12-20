@@ -63,7 +63,7 @@ export default function({reimbursement, isManager}: {reimbursement: Reimbursemen
         <tr key={reimbursement.reimbId}>
             {isManager
                 && <td>{reimbursement.user.firstName} {reimbursement.user.lastName}</td>}
-            <td>${reimbursement.amount}</td>
+            <td>${reimbursement.amount.toFixed(2)}</td>
             <td>
                 {updateDescToggle? 
                     <Form.Control 
@@ -85,7 +85,7 @@ export default function({reimbursement, isManager}: {reimbursement: Reimbursemen
                     : reimbursement.status
                 }
             </td>
-            <td style={{ width: "300px" }}>
+            <td className="d-flex gap-2 align-items-center">
                 {reimbursement.status === "PENDING" && !isManager
                     && <Form.Check 
                         type="checkbox" 

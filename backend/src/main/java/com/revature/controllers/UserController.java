@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.aspects.ManagerOnly;
@@ -42,13 +42,13 @@ public class UserController {
     }
     @PatchMapping("/{userId}")
     @ManagerOnly
-    public ResponseEntity<User> promoteUser(@RequestParam int userId) {
+    public ResponseEntity<User> promoteUser(@PathVariable int userId) {
         User result = userService.promoteUser(userId);
         return ResponseEntity.ok(result);
     }
     @DeleteMapping("{userId}")
     @ManagerOnly
-    public ResponseEntity<String> deleteUser(@RequestParam int userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable int userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted");
     }
