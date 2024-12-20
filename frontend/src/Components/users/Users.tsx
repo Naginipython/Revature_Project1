@@ -18,14 +18,14 @@ export default function () {
 
     const getEmployees = () => {
         axios.get(`http://localhost:8080/user`, { withCredentials: true })
-        .then(res => {
-            console.log(res.data);
-            setEmployees(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-            toast.error("Failed to get users");
-        })
+            .then(res => {
+                console.log(res.data);
+                setEmployees(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("Failed to get users");
+            })
     };
 
     const deleteUser = (userId: number) => {

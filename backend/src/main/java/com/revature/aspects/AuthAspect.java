@@ -25,14 +25,14 @@ public class AuthAspect {
     public void checkLoggedIn() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(false);
-
+        
         if (session == null || session.getAttribute("userId") == null) {
             throw new IllegalArgumentException("User is not logged in");
         }
     }
 
     // This advice will check if the requester is a manager before any method with the @ManagerOnly annotation is called
-    @Before("@annotation(ManagerOnly)") //com.revature.aspects.ManagerOnly
+    @Before("@annotation(com.revature.aspects.ManagerOnly)") //com.revature.aspects.ManagerOnly
     public void checkManager() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(false);

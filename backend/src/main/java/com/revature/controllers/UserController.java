@@ -18,6 +18,8 @@ import com.revature.aspects.ManagerOnly;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(allowCredentials = "true", value = "http://localhost:5173")
@@ -36,8 +38,14 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user, HttpSession session) {
         User result = userService.createUser(user);
+        
+        session.setAttribute("userId", result.getUserId());
+        session.setAttribute("username", result.getUsername());
+        session.setAttribute("role", result.getRole());
+        System.out.println("User " + result.getUsername() + " has logged in");
+
         return ResponseEntity.ok(result);
     }
     @PatchMapping("/{userId}")

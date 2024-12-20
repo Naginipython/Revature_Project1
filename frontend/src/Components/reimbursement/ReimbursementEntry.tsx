@@ -85,7 +85,7 @@ export default function({reimbursement, isManager}: {reimbursement: Reimbursemen
                     : reimbursement.status
                 }
             </td>
-            <td className="d-flex gap-2 align-items-center">
+            <td className={isManager? "d-flex gap-2 align-items-center" : ""}>
                 {reimbursement.status === "PENDING" && !isManager
                     && <Form.Check 
                         type="checkbox" 

@@ -39,7 +39,7 @@ export default function () {
                         <th>Amount</th>
                         <th>Description</th>
                         <th>Status</th>
-                        <th style={{width: "275px"}}>Options</th>
+                        <th style={{width: "300px"}}>Options</th>
                     </tr>
                 </thead>
                 <tbody>
