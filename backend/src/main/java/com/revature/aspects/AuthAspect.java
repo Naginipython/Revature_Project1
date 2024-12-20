@@ -25,7 +25,7 @@ public class AuthAspect {
     public void checkLoggedIn() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(false);
-        
+        // System.out.println(session.getAttribute("userId"));
         if (session == null || session.getAttribute("userId") == null) {
             throw new IllegalArgumentException("User is not logged in");
         }

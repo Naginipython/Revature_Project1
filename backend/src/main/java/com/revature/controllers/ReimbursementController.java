@@ -28,7 +28,6 @@ public class ReimbursementController {
         return ResponseEntity.ok(result);
     }
     @GetMapping("/{status}")
-    @ManagerOnly
     public ResponseEntity<List<Reimbursement>> getTicketByStatus(@PathVariable String status) {
         List<Reimbursement> result = reimbService.getTicketsByStatus(status.toUpperCase());
         return ResponseEntity.ok(result);

@@ -41,15 +41,25 @@ export default function () {
     };
 
     const promoteUser = (userId: number) => {
-        axios.patch(`http://localhost:8080/user/${userId}`, { withCredentials: true })
-            .then(res => {
-                console.log(res.data);
-                getEmployees();
-            })
-            .catch(err => {
-                console.log(err);
-                toast.error("Failed to promote user");
-            })
+        // axios.patch(`http://localhost:8080/user/${userId}`, { withCredentials: true })
+        //     .then(res => {
+        //         console.log(res.data);
+        //         getEmployees();
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         toast.error("Failed to promote user");
+        //     })
+        fetch(`http://localhost:8080/user/${userId}`, {
+            method: "PATCH",
+            credentials: "include",
+        }).then(res => {
+            console.log(res);
+            getEmployees();
+        }).catch(err => {
+            console.log(err);
+            toast.error("Failed to promote user");
+        })
     };
 
     return (
