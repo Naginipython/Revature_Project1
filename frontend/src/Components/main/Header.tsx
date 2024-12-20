@@ -12,7 +12,7 @@ export default function Header() {
             <Container>
                 <Row>
                     <Col onClick={() => navigate("/")} style={{cursor: "pointer"}}>
-                        <h2>McCann Reimbursement Service</h2>
+                        <h2>Employee Reimbursement Service</h2>
                     </Col>
                     <Col md="auto">
                         <LoginBtn />

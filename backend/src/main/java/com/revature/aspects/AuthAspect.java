@@ -32,7 +32,7 @@ public class AuthAspect {
     }
 
     // This advice will check if the requester is a manager before any method with the @ManagerOnly annotation is called
-    @Before("@annotation(com.revature.aspects.ManagerOnly)") //com.revature.aspects.ManagerOnly
+    @Before("@annotation(com.revature.aspects.ManagerOnly)")
     public void checkManager() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(false);

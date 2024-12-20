@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function () {
-    const {createUser} = useAuth();
+    const {createUser, login} = useAuth();
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -36,9 +36,12 @@ export default function () {
         createUser(firstName, lastName, username, password)
             .then((success) => {
                 if (success) {
-                    navigate("/");
+                    login(username, password).then(() =>{
+                        navigate("/");
+                    })
                 }
             });
+        
     };
 
     return (

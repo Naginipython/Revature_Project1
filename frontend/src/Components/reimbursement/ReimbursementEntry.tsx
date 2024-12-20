@@ -24,8 +24,10 @@ export default function({reimbursement, isManager}: {reimbursement: Reimbursemen
 
     const submitBtn = () => {
         if (updateDescToggle) {
+            (document.getElementById(`toggleDescUpdate-${reimbursement.reimbId}`) as HTMLInputElement).checked = false;
             submitDescUpdate();
         } else if (updateStatusToggle) {
+            (document.getElementById(`toggleStatUpdate-${reimbursement.reimbId}`) as HTMLInputElement).checked = false;
             submitStatusUpdate();
         }
     }

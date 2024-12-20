@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../AuthContext";
@@ -28,13 +28,30 @@ export default function () {
 
     const submit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(user?.userId);
-        axios.post("http://localhost:8080/reimbursement", {
-            amount: amount,
-            description: desc,
-            userId: user?.userId,
-        }, {withCredentials: true}).then(res => {
-            console.log(res.data);
+        // axios.post("http://localhost:8080/reimbursement", {
+        //     amount: amount,
+        //     description: desc,
+        //     userId: user?.userId,
+        // }, {withCredentials: true}).then(res => {
+        //     console.log(res.data);
+        //     toast.success("Reimbursement created successfully", { autoClose: 2000 });
+        // }).catch(err => {
+        //     console.log(err);
+        //     toast.error("Error creating reimbursement");
+        // });
+        fetch("http://localhost:8080/reimbursement", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                amount: amount,
+                description: desc,
+                userId: user?.userId,
+            }),
+            credentials: "include",
+        }).then(res => {
+            console.log(res);
             toast.success("Reimbursement created successfully", { autoClose: 2000 });
         }).catch(err => {
             console.log(err);
